@@ -1,64 +1,80 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Home());
 }
 
-class MyApp extends StatelessWidget {
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+class HomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Calculadora de IMC'),
+        centerTitle: true,
+        backgroundColor: Colors.green,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {},
+          )
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      backgroundColor: Colors.white,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Icon(
+            Icons.person_outline,
+            size: 120,
+            color: Colors.green,
+          ),
+          TextField(
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              labelText: 'Peso (Kg)',
+              labelStyle: TextStyle(
+                color: Colors.green,
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.green,
+              fontSize: 20,
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+          ),
+          TextField(
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              labelText: 'Altura (cm)',
+              labelStyle: TextStyle(
+                color: Colors.green,
+              ),
+            ),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.green,
+              fontSize: 20,
+            ),
+          ),
+          ElevatedButton(
+            child: Text('Calcular'),
+            onPressed: () {},
+          ),
+        ],
       ),
     );
   }
