@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
 
     setState(() {
       _infoText = "Informe os seus dados";
+      _formKey = GlobalKey<FormState>();
     });
   }
 
