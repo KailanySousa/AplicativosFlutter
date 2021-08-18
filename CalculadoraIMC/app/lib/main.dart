@@ -19,6 +19,47 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  TextEditingController weightController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+
+  String _infoText = "Informe os seus dados";
+
+  void _resetFields() {
+    weightController.text = '';
+    heightController.text = '';
+
+    setState(() {
+      _infoText = "Informe os seus dados";
+    });
+  }
+
+  void _calculate() {
+    setState(() {
+      double weight = double.parse(weightController.text);
+      double height = double.parse(heightController.text) / 100;
+
+      double imc = weight / (height * height);
+
+      String status = "";
+
+      if (imc < 18.6) {
+        status = "Abaixo do Peso";
+      } else if (imc < 24.9) {
+        status = "Peso Ideal";
+      } else if (imc < 29.9) {
+        status = "Levemente Acima do Peso";
+      } else if (imc < 34.9) {
+        status = "Obesidade Grau I";
+      } else if (imc < 39.9) {
+        status = "Obesidade Grau II";
+      } else {
+        status = "Obesidade Grau III";
+      }
+
+      _infoText = "${status} (${imc.toStringAsPrecision(3)})";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +70,7 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.refresh),
-            onPressed: () {},
+            onPressed: _resetFields,
           )
         ],
       ),
@@ -57,6 +98,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.green,
                 fontSize: 20,
               ),
+              controller: weightController,
             ),
             TextField(
               keyboardType: TextInputType.number,
@@ -71,9 +113,10 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.green,
                 fontSize: 20,
               ),
+              controller: heightController,
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15, bottom: 10),
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
               child: Container(
                 height: 50,
                 child: ElevatedButton(
@@ -84,12 +127,15 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 20,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: _calculate,
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green
+                  )
                 ),
               ),
             ),
             Text(
-              'Info',
+              _infoText,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.green,
