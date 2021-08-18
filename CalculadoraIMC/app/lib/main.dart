@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
           child: Form(
             key: _formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Icon(
                   Icons.person_outline,
