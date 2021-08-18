@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return file.writeAsString(data);
   }
 
-  Future<String> _readData() async {
+  Future<String?> _readData() async {
     try {
       final file = await _getFile();
       return file.readAsString();
@@ -52,6 +52,37 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Lista de Tarefas"),
+        backgroundColor: Colors.blueAccent,
+        centerTitle: true,
+      ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.fromLTRB(17, 1, 7, 1),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                    child: TextField(
+                  decoration: InputDecoration(
+                    labelText: "Nova Tarefa",
+                    labelStyle: TextStyle(color: Colors.blueAccent),
+                  ),
+                )),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text("ADD"),
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.blueAccent,
+                      textStyle: TextStyle(color: Colors.white)),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
