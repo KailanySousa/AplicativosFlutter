@@ -28,26 +28,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final _toDoController = TextEditingController();
   List _toDoList = [];
 
-  Future<File> _getFile() async {
-    final directory = await getApplicationDocumentsDirectory();
-    return File("${directory.path}/data.json");
-  }
+  void _addToDo() {
+    setState(() {
+      Map<String, dynamic> newToDo = Map();
+      newToDo["title"] = _toDoController.text;
+      newToDo["ok"] = false;
+      _toDoController.text = "";
 
-  Future<File> _saveData() async {
-    String data = json.encode(_toDoList);
-    final file = await _getFile();
-    return file.writeAsString(data);
-  }
-
-  Future<String?> _readData() async {
-    try {
-      final file = await _getFile();
-      return file.readAsString();
-    } catch (e) {
-      return null;
-    }
+      _toDoList.add(newToDo);
+    });
   }
 
   @override
@@ -70,9 +62,10 @@ class _HomeState extends State<Home> {
                     labelText: "Nova Tarefa",
                     labelStyle: TextStyle(color: Colors.blueAccent),
                   ),
+                  controller: _toDoController,
                 )),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: _addToDo,
                   child: Text("ADD"),
                   style: ElevatedButton.styleFrom(
                       primary: Colors.blueAccent,
@@ -93,8 +86,10 @@ class _HomeState extends State<Home> {
                     child: Icon(
                         _toDoList[index]["ok"] ? Icons.check : Icons.error),
                   ),
-                  onChanged: (t) {
-                    return;
+                  onChanged: (check) {
+                    setState(() {
+                      _toDoList[index]["ok"] = check;
+                    });
                   },
                 );
               },
@@ -103,5 +98,25 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
+  }
+
+  Future<File> _getFile() async {
+    final directory = await getApplicationDocumentsDirectory();
+    return File("${directory.path}/data.json");
+  }
+
+  Future<File> _saveData() async {
+    String data = json.encode(_toDoList);
+    final file = await _getFile();
+    return file.writeAsString(data);
+  }
+
+  Future<String?> _readData() async {
+    try {
+      final file = await _getFile();
+      return file.readAsString();
+    } catch (e) {
+      return null;
+    }
   }
 }
