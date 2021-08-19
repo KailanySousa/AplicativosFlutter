@@ -51,6 +51,23 @@ class _HomeState extends State<Home> {
       _toDoController.text = "";
 
       _toDoList.add(newToDo);
+      _refresh(false);
+    });
+  }
+
+  Future<Null> _refresh(bool delay) async {
+    if (delay) await Future.delayed(Duration(seconds: 1));
+
+    setState(() {
+      _toDoList.sort((a, b) {
+        if (a["ok"] && !b["ok"])
+          return 1;
+        else if (!a["ok"] && b["ok"])
+          return -1;
+        else
+          return 0;
+      });
+
       _saveData();
     });
   }
@@ -88,12 +105,14 @@ class _HomeState extends State<Home> {
             ),
           ),
           Expanded(
+              child: RefreshIndicator(
             child: ListView.builder(
               padding: EdgeInsets.only(top: 10),
               itemCount: _toDoList.length,
               itemBuilder: _buildItem,
             ),
-          )
+            onRefresh: () => _refresh(true),
+          ))
         ],
       ),
     );
