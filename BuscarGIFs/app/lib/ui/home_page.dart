@@ -33,6 +33,10 @@ class _HomeState extends State<HomePage> {
     return json.decode(response.body);
   }
 
+  Widget _createGifTable(BuildContext contect, AsyncSnapshot snapshot){
+    
+  }
+
   @override
   void initState() {
     super.initState();
@@ -65,7 +69,30 @@ class _HomeState extends State<HomePage> {
               style: TextStyle(color: Colors.white, fontSize: 18),
               textAlign: TextAlign.center,
             ),
-          )
+          ),
+          Expanded(
+              child: FutureBuilder(
+            future: _getGifs(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                case ConnectionState.none:
+                  return Container(
+                      width: 200,
+                      height: 200,
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        strokeWidth: 5.0,
+                      ));
+                default:
+                  if (snapshot.hasError)
+                    return Container();
+                  else
+                    _createGifTable(context, snapshot);
+              }
+            },
+          ))
         ],
       ),
     );
