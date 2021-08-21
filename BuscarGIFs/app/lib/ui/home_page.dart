@@ -22,7 +22,7 @@ class _HomeState extends State<HomePage> {
   Future<Map> _getGifs() async {
     http.Response response;
 
-    if (_search == null) {
+    if (_search == null || _search!.isEmpty) {
       Uri requestTrending = Uri.parse(
           "https://api.giphy.com/v1/gifs/trending?api_key=qCEu3iQmCaq5dN1zXkcqPG1wIKpuMolR&limit=20&rating=g");
 
@@ -38,7 +38,7 @@ class _HomeState extends State<HomePage> {
   }
 
   int _getCount(List data) {
-    if (_search == null) {
+    if (_search == null || _search!.isEmpty) {
       return data.length;
     } else {
       return data.length + 1;
