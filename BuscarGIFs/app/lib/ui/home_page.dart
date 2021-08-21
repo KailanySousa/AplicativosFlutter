@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 
 import 'package:share/share.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -56,11 +57,12 @@ class _HomeState extends State<HomePage> {
         itemBuilder: (context, index) {
           if (_search == null || index < snapshot.data["data"].length) {
             return GestureDetector(
-              child: Image.network(
-                snapshot.data["data"][index]["images"]["fixed_height"]["url"],
-                height: 300,
-                fit: BoxFit.cover,
-              ),
+              child: FadeInImage.memoryNetwork(
+                  placeholder: kTransparentImage,
+                  height: 300,
+                  fit: BoxFit.cover,
+                  image: snapshot.data["data"][index]["images"]["fixed_height"]
+                      ["url"]),
               onTap: () {
                 Navigator.push(
                     context,
@@ -68,7 +70,7 @@ class _HomeState extends State<HomePage> {
                         builder: (context) =>
                             GifPage(snapshot.data["data"][index])));
               },
-              onLongPress: (){
+              onLongPress: () {
                 Share.share(snapshot.data["data"][index]["images"]
                     ["fixed_height"]["url"]);
               },
