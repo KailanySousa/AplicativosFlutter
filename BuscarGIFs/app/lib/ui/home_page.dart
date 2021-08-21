@@ -33,8 +33,24 @@ class _HomeState extends State<HomePage> {
     return json.decode(response.body);
   }
 
-  Widget _createGifTable(BuildContext contect, AsyncSnapshot snapshot){
-    
+  Widget _createGifTable(BuildContext contect, AsyncSnapshot snapshot) {
+    return GridView.builder(
+        padding: EdgeInsets.all(10),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemCount: snapshot.data["data"].length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            child: Image.network(
+              snapshot.data["data"][index]["images"]["fixed_height"]["url"],
+              height: 300,
+              fit: BoxFit.cover,
+            ),
+          );
+        });
   }
 
   @override
@@ -89,7 +105,7 @@ class _HomeState extends State<HomePage> {
                   if (snapshot.hasError)
                     return Container();
                   else
-                    _createGifTable(context, snapshot);
+                    return _createGifTable(context, snapshot);
               }
             },
           ))
