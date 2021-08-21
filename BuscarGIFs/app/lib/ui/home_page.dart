@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app/ui/gif_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -20,7 +21,7 @@ class _HomeState extends State<HomePage> {
 
     if (_search == null) {
       Uri requestTrending = Uri.parse(
-          "https://api.giphy.com/v1/gifs/trending?api_key=qCEu3iQmCaq5dN1zXkcqPG1wIKpuMolR&limit=19&rating=g");
+          "https://api.giphy.com/v1/gifs/trending?api_key=qCEu3iQmCaq5dN1zXkcqPG1wIKpuMolR&limit=20&rating=g");
 
       response = await http.get(requestTrending);
     } else {
@@ -58,6 +59,13 @@ class _HomeState extends State<HomePage> {
                 height: 300,
                 fit: BoxFit.cover,
               ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            GifPage(snapshot.data["data"][index])));
+              },
             );
           } else {
             return Container(
