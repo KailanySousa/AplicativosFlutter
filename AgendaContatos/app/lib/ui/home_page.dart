@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:app/helpers/contact_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'contact_page.dart';
 
@@ -93,7 +94,9 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: EdgeInsets.all(10),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            launch("tel:${contacts[index].phone}");
+                          },
                           child: Text(
                             "Ligar",
                             style: TextStyle(color: Colors.red, fontSize: 20),

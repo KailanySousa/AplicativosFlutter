@@ -105,6 +105,20 @@ class _ContactPageState extends State<ContactPage> {
                             : AssetImage("images/person.png") as ImageProvider),
                   ),
                 ),
+                onTap: () {
+                  ImagePicker imagePicker = ImagePicker();
+
+                  imagePicker.pickImage(source: ImageSource.camera).then(
+                        (file) => {
+                          if (file != null)
+                            {
+                              setState(() {
+                                _editedContact.img = file.path;
+                              })
+                            }
+                        },
+                      );
+                },
               ),
               TextField(
                 decoration: InputDecoration(labelText: "Nome"),
