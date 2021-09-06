@@ -41,7 +41,8 @@ class _HomePageState extends State<HomePage> {
                   image: DecorationImage(
                       image: contacts[index].img != null
                           ? FileImage(File(contacts[index].img))
-                          : AssetImage("images/person.png") as ImageProvider),
+                          : AssetImage("images/person.png") as ImageProvider,
+                      fit: BoxFit.cover),
                 ),
               ),
               Padding(
