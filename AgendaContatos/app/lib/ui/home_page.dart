@@ -47,20 +47,20 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      contacts[index].name ?? "",
+                      contacts[index].name,
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      contacts[index].email ?? "",
+                      contacts[index].email,
                       style: TextStyle(
                         fontSize: 18,
                       ),
                     ),
                     Text(
-                      contacts[index].phone ?? "",
+                      contacts[index].phone,
                       style: TextStyle(
                         fontSize: 18,
                       ),
@@ -73,9 +73,67 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       onTap: () {
-        _showContactPage(contact: contacts[index]);
+        _showOptions(context, index);
       },
     );
+  }
+
+  void _showOptions(BuildContext context, int index) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return BottomSheet(
+              onClosing: () {},
+              builder: (context) {
+                return Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "Ligar",
+                            style: TextStyle(color: Colors.red, fontSize: 20),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            _showContactPage(contact: contacts[index]);
+                          },
+                          child: Text(
+                            "Editar",
+                            style: TextStyle(color: Colors.red, fontSize: 20),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: TextButton(
+                          onPressed: () {
+                            helper.deleteContact(contacts[index].id);
+                            setState(() {
+                              contacts.removeAt(index);
+                              Navigator.pop(context);
+                            });
+                          },
+                          child: Text(
+                            "Excluir",
+                            style: TextStyle(color: Colors.red, fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              });
+        });
   }
 
   void _showContactPage({Contact? contact}) async {
@@ -111,7 +169,9 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
-        onPressed: _showContactPage,
+        onPressed: () {
+          _showContactPage();
+        },
         child: Icon(Icons.add),
         backgroundColor: Colors.red,
       ),
