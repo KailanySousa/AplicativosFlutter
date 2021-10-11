@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                       image: contacts[index].img != null
-                          ? FileImage(File(contacts[index].img))
+                          ? FileImage(File(contacts[index].img!))
                           : AssetImage("images/person.png") as ImageProvider,
                       fit: BoxFit.cover),
                 ),
@@ -51,20 +51,20 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      contacts[index].name,
+                      contacts[index].name!,
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      contacts[index].email,
+                      contacts[index].email!,
                       style: TextStyle(
                         fontSize: 18,
                       ),
                     ),
                     Text(
-                      contacts[index].phone,
+                      contacts[index].phone!,
                       style: TextStyle(
                         fontSize: 18,
                       ),
@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                         padding: EdgeInsets.all(10),
                         child: TextButton(
                           onPressed: () {
-                            helper.deleteContact(contacts[index].id);
+                            helper.deleteContact(contacts[index].id!);
                             setState(() {
                               contacts.removeAt(index);
                               Navigator.pop(context);
@@ -169,12 +169,12 @@ class _HomePageState extends State<HomePage> {
     switch (result) {
       case OrderOptions.orderaz:
         contacts.sort((a, b) {
-          return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+          return a.name!.toLowerCase().compareTo(b.name!.toLowerCase());
         });
         break;
       case OrderOptions.orderza:
         contacts.sort((a, b) {
-          return b.name.toLowerCase().compareTo(a.name.toLowerCase());
+          return b.name!.toLowerCase().compareTo(a.name!.toLowerCase());
         });
         break;
     }

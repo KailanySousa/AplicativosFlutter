@@ -30,9 +30,9 @@ class _ContactPageState extends State<ContactPage> {
       _editedContact = Contact();
     } else {
       _editedContact = Contact.fromMap(widget.contact!.toMap());
-      _nameController.text = _editedContact.name;
-      _emailController.text = _editedContact.email;
-      _phoneController.text = _editedContact.phone;
+      _nameController.text = _editedContact.name!;
+      _emailController.text = _editedContact.email!;
+      _phoneController.text = _editedContact.phone!;
     }
   }
 
@@ -75,11 +75,12 @@ class _ContactPageState extends State<ContactPage> {
         appBar: AppBar(
           backgroundColor: Colors.red,
           title: Text(_editedContact.name ?? "Novo Contato"),
+          // title: Text(_editedContact.name),
           centerTitle: true,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            if (_editedContact.name != null && _editedContact.name.isNotEmpty) {
+            if (_editedContact.name != null && _editedContact.name!.isNotEmpty) {
               Navigator.pop(context, _editedContact);
             } else {
               FocusScope.of(context).requestFocus(_nameFocus);
@@ -101,7 +102,7 @@ class _ContactPageState extends State<ContactPage> {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         image: _editedContact.img != null
-                            ? FileImage(File(_editedContact.img))
+                            ? FileImage(File(_editedContact.img!))
                             : AssetImage("images/person.png") as ImageProvider,
                         fit: BoxFit.cover),
                   ),

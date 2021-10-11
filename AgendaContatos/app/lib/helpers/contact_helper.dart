@@ -13,17 +13,21 @@ class ContactHelper {
   static final ContactHelper _instance = ContactHelper.internal();
 
   factory ContactHelper() => _instance;
-
   ContactHelper.internal();
 
-  late Database _db;
+  Database? _db;
 
   Future<Database> get db async {
+
+    // print(a);
+    // print(_db.);
+    // return _db;
+    // print(_db.isOpen);
     if (_db != null) {
-      return _db;
+      return _db!;
     } else {
       _db = await initDb();
-      return _db;
+      return _db!;
     }
   }
 
@@ -95,11 +99,11 @@ class ContactHelper {
 }
 
 class Contact {
-  late int id;
-  late String name;
-  late String email;
-  late String phone;
-  late String img;
+   int? id;
+   String? name;
+   String? email;
+   String? phone;
+   String? img;
 
   Contact() {}
 
