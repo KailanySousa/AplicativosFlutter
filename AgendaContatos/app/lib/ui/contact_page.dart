@@ -80,7 +80,8 @@ class _ContactPageState extends State<ContactPage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            if (_editedContact.name != null && _editedContact.name!.isNotEmpty) {
+            if (_editedContact.name != null &&
+                _editedContact.name!.isNotEmpty) {
               Navigator.pop(context, _editedContact);
             } else {
               FocusScope.of(context).requestFocus(_nameFocus);

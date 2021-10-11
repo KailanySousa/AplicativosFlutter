@@ -18,11 +18,6 @@ class ContactHelper {
   Database? _db;
 
   Future<Database> get db async {
-
-    // print(a);
-    // print(_db.);
-    // return _db;
-    // print(_db.isOpen);
     if (_db != null) {
       return _db!;
     } else {
@@ -75,7 +70,6 @@ class ContactHelper {
 
   Future<List> getAllContacts() async {
     Database dbContact = await db;
-    print(dbContact);
     List listMap = await dbContact.rawQuery("SELECT * FROM $contactTable");
 
     List<Contact> listContact = [];
@@ -99,11 +93,11 @@ class ContactHelper {
 }
 
 class Contact {
-   int? id;
-   String? name;
-   String? email;
-   String? phone;
-   String? img;
+  int? id;
+  String? name;
+  String? email;
+  String? phone;
+  String? img;
 
   Contact() {}
 

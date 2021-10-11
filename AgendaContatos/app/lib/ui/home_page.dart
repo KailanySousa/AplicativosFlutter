@@ -56,11 +56,18 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
-                      contacts[index].email!,
-                      style: TextStyle(
-                        fontSize: 18,
+                    Container(
+                      constraints: BoxConstraints(maxWidth: 220),
+                      child: Text(
+                        contacts[index].email!,
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: false,
                       ),
                     ),
                     Text(
@@ -68,6 +75,7 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(
                         fontSize: 18,
                       ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
